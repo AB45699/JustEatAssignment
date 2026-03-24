@@ -23,7 +23,7 @@ describe("app", ()=>{
                 json: async () => mockData
             }); 
 
-            await request(app).get("/api/restaurants").expect(200);
+            await request(app).get("/api/restaurants?postcode=EC4M7RF").expect(200);
         });
         test("responds with an array on the key of restaurants", async ()=> {
             global.fetch.mockResolvedValueOnce({
@@ -31,7 +31,7 @@ describe("app", ()=>{
                 json: async () => mockData
             }); 
 
-            const { body } = await request(app).get("/api/restaurants"); 
+            const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF"); 
 
             expect(Array.isArray(body.restaurants)).toBe(true);
         });
@@ -41,7 +41,7 @@ describe("app", ()=>{
                 json: async () => mockData
             }); 
 
-            const { body } = await request(app).get("/api/restaurants"); 
+            const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF"); 
             
             expect(body.restaurants.length).toBe(10);
         });
@@ -51,7 +51,7 @@ describe("app", ()=>{
                 json: async () => mockData
             });
 
-            const { body } = await request(app).get("/api/restaurants");
+            const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF");
 
             body.restaurants.forEach((restaurant)=>{
                 expect(restaurant).toHaveProperty("id");
@@ -85,7 +85,7 @@ describe("app", ()=>{
                 status: 404
             }); 
 
-            const { body } = await request(app).get("/api/restaurants").expect(404);
+            const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF").expect(404);
 
             expect(body.message).toBe("HTTP error! Status: 404")
         });
@@ -94,7 +94,7 @@ describe("app", ()=>{
                 new Error ("Network error")
             ); 
 
-            const { body } = await request(app).get("/api/restaurants").expect(500);
+            const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF").expect(500);
             
             expect(body.message).toBe("Could not fetch data.")
         })
