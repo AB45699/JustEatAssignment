@@ -78,6 +78,16 @@ describe("app", ()=>{
                     expect(typeof(cuisine.name)).toBe("string");
                 })
             });
+        });
+        test("handles HTTP errors (e.g. 404 error) by responding with the status code and error message", async () => {
+            global.fetch.mockResolvedValueOnce({
+                ok: false, 
+                status: 404
+            }); 
+
+            const { body } = await request(app).get("/api/restaurants").expect(404);
+
+            expect(body.message).toBe("HTTP error! Status: 404")
         })
     })
 })
