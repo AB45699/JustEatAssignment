@@ -2,6 +2,13 @@ const app = require("../app.js");
 const request = require("supertest");
 const mockData = require("./mockRestaurantData.js");
 
+const mockSuccessfulFetch = () => {
+    global.fetch.mockResolvedValueOnce({
+        ok: true, 
+        json: async () => mockData
+    }); 
+};
+
 beforeEach(()=>{
     global.fetch = jest.fn();
 }); 
@@ -18,38 +25,26 @@ describe("app", ()=>{
     });
     describe("GET /api/restaurants", ()=>{
         test("should respond with a status of 200", async ()=>{
-            global.fetch.mockResolvedValueOnce({
-                ok: true, 
-                json: async () => mockData
-            }); 
+            mockSuccessfulFetch();
 
             await request(app).get("/api/restaurants?postcode=EC4M7RF").expect(200);
         });
         test("responds with an array on the key of restaurants", async ()=> {
-            global.fetch.mockResolvedValueOnce({
-                ok: true, 
-                json: async () => mockData
-            }); 
+            mockSuccessfulFetch();
 
             const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF"); 
 
             expect(Array.isArray(body.restaurants)).toBe(true);
         });
         test("responds with an array of length 10", async()=>{
-            global.fetch.mockResolvedValueOnce({
-                ok: true, 
-                json: async () => mockData
-            }); 
+            mockSuccessfulFetch();
 
             const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF"); 
             
             expect(body.restaurants.length).toBe(10);
         });
         test("the restaurants (objects) within the array have the required id, name, address, rating and cuisine keys", async ()=>{
-            global.fetch.mockResolvedValueOnce({
-                ok: true, 
-                json: async () => mockData
-            });
+            mockSuccessfulFetch();
 
             const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF");
 
