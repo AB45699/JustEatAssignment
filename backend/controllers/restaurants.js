@@ -3,5 +3,7 @@ exports.getRestaurants = async (req, res, next) => {
     
     const data = await response.json();
 
-    res.status(200).send({restaurants: data.restaurants});
+    const filteredRestaurants = data.restaurants.slice(0, 10);
+    
+    res.status(200).send({restaurants: filteredRestaurants});
 }

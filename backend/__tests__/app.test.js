@@ -17,7 +17,7 @@ describe("app", ()=>{
                 ok: true, 
                 json: async () => mockData
             }); 
-            
+
             await request(app).get("/api/restaurants").expect(200);
         });
         test("responds with an array on the key of restaurants", async ()=> {
@@ -29,6 +29,16 @@ describe("app", ()=>{
             const { body } = await request(app).get("/api/restaurants"); 
 
             expect(Array.isArray(body.restaurants)).toBe(true);
+        });
+        test("responds with an array of length 10", async()=>{
+            global.fetch.mockResolvedValueOnce({
+                ok: true, 
+                json: async () => mockData
+            }); 
+
+            const { body } = await request(app).get("/api/restaurants"); 
+            
+            expect(body.restaurants.length).toBe(10);
         })
     })
 })
