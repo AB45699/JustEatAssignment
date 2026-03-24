@@ -88,6 +88,15 @@ describe("app", ()=>{
             const { body } = await request(app).get("/api/restaurants").expect(404);
 
             expect(body.message).toBe("HTTP error! Status: 404")
+        });
+        test("handles unsuccessful fetch by responding with a status code of 500 and error message", async () => {
+            global.fetch.mockRejectedValueOnce(
+                new Error ("Network error")
+            ); 
+
+            const { body } = await request(app).get("/api/restaurants").expect(500);
+            
+            expect(body.message).toBe("Could not fetch data.")
         })
     })
 })

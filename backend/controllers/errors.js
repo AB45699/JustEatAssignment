@@ -5,5 +5,11 @@ exports.handlePathNotFound = (req, res, next) => {
 exports.handleHTTPErrors = (err, req, res, next) => {
     if (err.status) {
         res.status(err.status).send({message: err.message})
+    } else {
+        next(err);
     };
-}
+};
+
+exports.handleFetchErrors = (err, req, res, next) => {
+    res.status(500).send({message: "Could not fetch data."});
+};
