@@ -11,6 +11,11 @@ afterEach(()=>{
 });
 
 describe("app", ()=>{
+    test("should respond with status of 404 and error message for invalid path", async () => {
+        const { body } = await request(app).get("/invalid/path").expect(404);
+
+        expect(body.message).toBe("Path not found");
+    });
     describe("GET /api/restaurants", ()=>{
         test("should respond with a status of 200", async ()=>{
             global.fetch.mockResolvedValueOnce({
@@ -65,7 +70,7 @@ describe("app", ()=>{
 
                 expect(restaurant).toHaveProperty("cuisines");
                 expect(Array.isArray(restaurant.cuisines)).toBe(true);
-                
+
                 restaurant.cuisines.forEach((cuisine)=>{
                     expect(typeof(cuisine)).toBe("object");
                     expect(Array.isArray(cuisine)).toBe(false);
