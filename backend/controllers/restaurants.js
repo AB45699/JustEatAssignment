@@ -1,5 +1,13 @@
 exports.getRestaurants = async (req, res, next) => {
-    const response = await fetch(`https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/EC4M7RF`)
+    const { postcode } = req.query; 
+
+    if (postcode === undefined) {
+        const error = new Error ("Bad request");
+        error.status = 400;
+        throw error;
+    };
+
+    const response = await fetch(`https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/${postcode}`)
     
     if (!response.ok) {
         const error = new Error (`HTTP error! Status: ${response.status}`);
