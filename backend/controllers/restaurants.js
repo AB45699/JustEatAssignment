@@ -1,9 +1,10 @@
 const createError = require("../utils/createError.js");
+const validatePostcode = require("../utils/validatePostcode.js");
 
 exports.getRestaurants = async (req, res, next) => {
     const { postcode } = req.query; 
 
-    if (postcode === undefined) {
+    if (postcode === undefined || (!validatePostcode(postcode))) {
         throw createError("Bad request", 400);
     };
 

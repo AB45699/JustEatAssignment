@@ -98,11 +98,16 @@ describe("app", ()=>{
             });
         });
         describe("Postcode query handling", ()=> {
-            test("should respond with a 400 and error message if postcode query is missing", async () => {
+            test("should respond with a 400 status and error message if postcode query is missing", async () => {
                 const { body } = await request(app).get("/api/restaurants").expect(400);
 
                 expect(body.message).toBe("Bad request");
             }); 
+            test("should respond with a 400 status and error message if an invalid postcode query is provided", async ()=>{
+                const { body } = await request(app).get("/api/restaurants?postcode=EC4m?$F").expect(400); 
+
+                expect(body.message).toBe("Bad request");
+            });
         })
     });
 })
