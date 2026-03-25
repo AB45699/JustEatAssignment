@@ -108,6 +108,15 @@ describe("app", ()=>{
 
                 expect(body.message).toBe("Bad request");
             });
+            test("should respond with a 200 status and empty array for a valid postcode with no results", async ()=>{
+                global.fetch.mockResolvedValueOnce({
+                    ok: true, 
+                    json: async () => ({"restaurants": []})
+                });
+
+                const { body } = await request(app).get("/api/restaurants?postcode=AXAA123").expect(200);
+                expect(body.restaurants).toEqual([]);
+            });
         })
     });
 })
