@@ -3,10 +3,13 @@ function transformData(restaurants = []) {
         let {name, address, rating, cuisines} = restaurant;
 
         cuisines = (cuisines ?? []).map((cuisine)=>cuisine.name); 
-        address = address ?? { city: "Unavailable", firstLine: "Unavailable" };
+        address = {
+            city: address?.city ?? "Unavailable",
+            firstLine: address?.firstLine ?? "Unavailable"
+        };
 
         return {
-            "name": name ?? "Restaurant", 
+            "name": name || "Restaurant", 
             "address": address, 
             "starRating": rating?.starRating ?? 0, 
             "cuisines": cuisines
