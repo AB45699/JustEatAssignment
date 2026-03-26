@@ -1,5 +1,6 @@
 const createError = require("../utils/createError.js");
 const validatePostcode = require("../utils/validatePostcode.js");
+const transformData = require("../utils/transformData.js");
 
 exports.getRestaurants = async (req, res, next) => {
     const { postcode } = req.query; 
@@ -18,7 +19,7 @@ exports.getRestaurants = async (req, res, next) => {
 
     const data = await response.json();
 
-    const filteredRestaurants = data.restaurants.slice(0, 10);
+    const filteredRestaurants = transformData(data.restaurants.slice(0, 10));
     
     res.status(200).send({restaurants: filteredRestaurants});
 };

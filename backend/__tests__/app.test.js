@@ -45,15 +45,12 @@ describe("app", ()=>{
                 
                 expect(body.restaurants.length).toBe(10);
             });
-            test("the restaurants (objects) within the array have the required id, name, address, rating and cuisine keys", async ()=>{
+            test("the restaurants (objects) within the array have the required name, address, starRating and cuisines keys", async ()=>{
                 mockSuccessfulFetch();
 
                 const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF");
-
+                
                 body.restaurants.forEach((restaurant)=>{
-                    expect(restaurant).toHaveProperty("id");
-                    expect(typeof(restaurant.id)).toBe("string");
-
                     expect(restaurant).toHaveProperty("name");
                     expect(typeof(restaurant.name)).toBe("string");
 
@@ -62,18 +59,15 @@ describe("app", ()=>{
                     expect(restaurant).toHaveProperty("address.firstLine");
                     expect(typeof(restaurant.address.firstLine)).toBe("string");
                     
-                    expect(restaurant).toHaveProperty("rating.starRating");
-                    expect(typeof(restaurant.rating.starRating)).toBe("number");
+                    expect(restaurant).toHaveProperty("starRating");
+                    expect(typeof(restaurant.starRating)).toBe("number");
 
                     expect(restaurant).toHaveProperty("cuisines");
                     expect(Array.isArray(restaurant.cuisines)).toBe(true);
 
                     restaurant.cuisines.forEach((cuisine)=>{
-                        expect(typeof(cuisine)).toBe("object");
-                        expect(Array.isArray(cuisine)).toBe(false);
-                        expect(cuisine).toHaveProperty("name");
-                        expect(typeof(cuisine.name)).toBe("string");
-                    })
+                        expect(typeof(cuisine)).toBe("string");
+                    });
                 });
             });
         });
@@ -106,7 +100,7 @@ describe("app", ()=>{
                 expect(global.fetch).not.toHaveBeenCalled();
             }); 
             test("should respond with a 400 status and error message if an invalid postcode query is provided", async ()=>{
-                const { body } = await request(app).get("/api/restaurants?postcode=EC4m?$F").expect(400); 
+                const { body } = await request(app).get("/api/restaurants?postcode=EC4M?$F").expect(400); 
 
                 expect(body.message).toBe("Bad request");
                 expect(global.fetch).not.toHaveBeenCalled();
