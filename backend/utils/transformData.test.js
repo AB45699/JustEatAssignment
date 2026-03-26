@@ -1,0 +1,170 @@
+const transformData = require("./transformData.js"); 
+
+let singleRestaurant, multipleRestaurants;
+
+beforeEach(()=>{
+    singleRestaurant = [
+        {
+            "name": "Pizza Restaurant",
+            "address": {"city": "London","firstLine": "1 London Street"},
+            "rating": {"starRating": 3.25},
+            "cuisines": [{"name": "Pizza"},{"name": "Italian"}]
+        }]; 
+
+    multipleRestaurants =  [
+        {
+            "name": "Burrito Restaurant",
+            "address": {"city": "London","firstLine": "2 London Street"},
+            "rating": {"starRating": 5},
+            "cuisines": [{"name": "Fast food"},{"name": "Mexican"}]
+        },
+        {
+            "name": "Chicken Restaurant",
+            "address": {"city": "London","firstLine": "3 London Street"},
+            "rating": {"starRating": 3.5},
+            "cuisines": [{"name": "Chicken"}]
+        }];
+});
+
+describe("transformData", ()=>{
+    describe("Main functionality", ()=>{
+        test("returns an array", ()=>{
+            expect(Array.isArray(transformData([]))).toBe(true);
+        });
+        test("transforms a single raw restaurant object into the desired shape", ()=>{
+            const output = transformData(singleRestaurant);
+
+            expect(output).toMatchObject([{ 
+                "name": "Pizza Restaurant", 
+                "address": {"city": "London","firstLine": "1 London Street"},
+                "starRating": 3.25, 
+                "cuisines": ["Pizza", "Italian"]
+            }]); 
+            expect(output.length).toBe(1);
+        }); 
+        test("transforms multiple raw restaurant objects into the desired shape", ()=>{
+            const output = transformData(multipleRestaurants);
+
+            expect(output).toMatchObject([
+                {
+                    "name": "Burrito Restaurant",
+                    "address": {"city": "London","firstLine": "2 London Street"},
+                    "starRating": 5,
+                    "cuisines": ["Fast food", "Mexican"]
+                }, 
+                {
+                    "name": "Chicken Restaurant",
+                    "address": {"city": "London","firstLine": "3 London Street"},
+                    "starRating": 3.5,
+                    "cuisines": ["Chicken"]
+                }]
+            );
+            expect(output.length).toBe(2);
+        });
+    });
+    describe("Edge cases", ()=>{
+        test("an empty array input returns an empty array", ()=>{
+            expect(transformData([])).toEqual([]);
+        }); 
+        test("no input returns an empty array", ()=>{
+            expect(transformData()).toEqual([]);
+        }); 
+        describe("Missing keys handling", ()=>{
+            test("Should return cuisines key as an empty array if the key is missing", ()=>{
+                const {cuisines, ...rest} = singleRestaurant[0];
+                const noCuisinesData = [rest];
+                
+                expect(transformData(noCuisinesData)[0]).toHaveProperty("cuisines", []); 
+            }); 
+            test("Should return name key as 'Restaurant' if the the name key is missing", ()=>{
+                const {name, ...rest} = singleRestaurant[0];
+                const noNameData = [rest];
+
+                expect(transformData(noNameData)[0]).toHaveProperty("name", "Restaurant");  
+            });
+            test("Should return 'Unavailable' for city and firstLine keys if address key is missing", ()=>{
+                const {address, ...rest} = singleRestaurant[0];
+                const noAddressData = [rest];
+                const output = transformData(noAddressData);
+
+                expect(output[0]).toHaveProperty("address.city", "Unavailable");
+                expect(output[0]).toHaveProperty("address.firstLine", "Unavailable");
+            });
+            test("Should return starRating key as 0 if the starRating key is missing", ()=>{
+                const noStarRatingData = [{...singleRestaurant[0], "rating": {}}]; 
+
+                expect(transformData(noStarRatingData)[0]).toHaveProperty("starRating", 0);
+            });
+            test("Should return starRating key as 0 if the rating key is missing", ()=>{
+                const {rating, ...rest} = singleRestaurant[0];
+                const noRatingData = [rest]; 
+
+                expect(transformData(noRatingData)[0]).toHaveProperty("starRating", 0);
+            });
+        });
+        describe("Null/empty value handling", ()=>{
+            test("Should return cuisines key as an empty array if cuisines is null", ()=>{
+                const nullCuisinesData = [{...singleRestaurant[0], "cuisines": null}];
+
+                expect(transformData(nullCuisinesData)[0]).toHaveProperty("cuisines", []);
+            });
+            test("Should return name key as 'Restaurant' if name is null", ()=>{
+                const nullNameData = [{...singleRestaurant[0], "name": null}];
+
+                expect(transformData(nullNameData)[0]).toHaveProperty("name", "Restaurant");
+            });
+            test("Should return 'Unavailable' for city and firstLine keys if address is null", ()=>{
+                const nullAddressData = [{...singleRestaurant[0], "address": null}];
+                const output = transformData(nullAddressData);
+
+                expect(output[0]).toHaveProperty("address.city", "Unavailable");
+                expect(output[0]).toHaveProperty("address.firstLine", "Unavailable");
+            });
+            test("Should return starRating key as 0 if starRating is null", ()=>{
+                const nullStarRatingData = [{...singleRestaurant[0], "rating": {"starRating": null}}];
+
+                expect(transformData(nullStarRatingData)[0]).toHaveProperty("starRating", 0);
+            });
+            test("Should return starRating key as 0 if rating is null", ()=>{
+                const nullRatingData = [{...singleRestaurant[0], "rating": null}];
+
+                expect(transformData(nullRatingData)[0]).toHaveProperty("starRating", 0);
+            });
+        });
+    }); 
+    describe("Mutability tests", ()=>{
+        test("does not mutate the input array", ()=>{
+            const input = multipleRestaurants;
+
+            transformData(input);
+            expect(input).toEqual([
+                {
+                    "name": "Burrito Restaurant",
+                    "address": {"city": "London","firstLine": "2 London Street"},
+                    "rating": {"starRating": 5},
+                    "cuisines": [{"name": "Fast food"},{"name": "Mexican"}]
+                },
+                {
+                    "name": "Chicken Restaurant",
+                    "address": {"city": "London","firstLine": "3 London Street"},
+                    "rating": {"starRating": 3.5},
+                    "cuisines": [{"name": "Chicken"}]
+                }
+            ]);
+        });
+        test("returns a new array", ()=>{
+            const input = multipleRestaurants;
+            const output = transformData(input);
+            
+            expect(input).not.toBe(output);
+        });
+        test("the objects within the returned array are new", ()=>{
+            const input = multipleRestaurants;
+            const output = transformData(input);
+
+            output.forEach((restaurant, i)=> {
+                expect(restaurant).not.toBe(input[i]);
+            });
+        });
+    });
+});
