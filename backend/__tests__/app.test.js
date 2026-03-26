@@ -29,6 +29,7 @@ describe("app", ()=>{
                 mockSuccessfulFetch();
 
                 await request(app).get("/api/restaurants?postcode=EC4M7RF").expect(200);
+                expect(global.fetch).toHaveBeenCalledWith("https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/EC4M7RF");
             });
             test("responds with an array on the key of restaurants", async ()=> {
                 mockSuccessfulFetch();
@@ -77,15 +78,15 @@ describe("app", ()=>{
             });
         });
         describe("API scenarios", ()=>{
-            test("handles HTTP errors (e.g. 404 error) by responding with the status code and error message", async () => {
+            test("handles HTTP errors (e.g. 403 error) by responding with the status code and error message", async () => {
                 global.fetch.mockResolvedValueOnce({
                     ok: false, 
-                    status: 404
+                    status: 403
                 }); 
 
-                const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF").expect(404);
+                const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF").expect(403);
 
-                expect(body.message).toBe("HTTP error! Status: 404")
+                expect(body.message).toBe("HTTP error! Status: 403")
             });
             test("handles unsuccessful fetch by responding with a status code of 500 and error message", async () => {
                 global.fetch.mockRejectedValueOnce(
@@ -98,15 +99,17 @@ describe("app", ()=>{
             });
         });
         describe("Postcode query handling", ()=> {
-            test("should respond with a 400 status and error message if postcode query is missing", async () => {
+            test("should respond with a 400 status and error message if postcode query is not provided", async () => {
                 const { body } = await request(app).get("/api/restaurants").expect(400);
 
                 expect(body.message).toBe("Bad request");
+                expect(global.fetch).not.toHaveBeenCalled();
             }); 
             test("should respond with a 400 status and error message if an invalid postcode query is provided", async ()=>{
                 const { body } = await request(app).get("/api/restaurants?postcode=EC4m?$F").expect(400); 
 
                 expect(body.message).toBe("Bad request");
+                expect(global.fetch).not.toHaveBeenCalled();
             });
             test("should respond with a 200 status and empty array for a valid postcode with no results", async ()=>{
                 global.fetch.mockResolvedValueOnce({
