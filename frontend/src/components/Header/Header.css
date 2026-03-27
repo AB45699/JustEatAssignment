@@ -1,5 +1,12 @@
-.Header {
-    border: 1px solid rgb(71, 71, 1);
+.header {
     padding: 10px;
-    
+    height: 95px;
+    background-color: white;
+    box-shadow: 0 3px 10px -2px rgb(194, 188, 188);
+}
+
+.header__logo { 
+    position: relative; 
+    top: 10px;
+    margin-left: 5px;
 }
