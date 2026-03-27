@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import validatePostcode from '../../utils/validatePostcode.js';
+import { useNavigate } from 'react-router';
 import './PostcodeInput.css'; 
 
 function PostcodeInput() {
 	const [postcodeInput, setPostcodeInput] = useState("");
 	const [inputError, setInputError] = useState(null);
+	const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		setPostcodeInput(e.target.value);
@@ -14,9 +16,11 @@ function PostcodeInput() {
 		if (!validatePostcode(postcodeInput)) {
 			setInputError("Please enter a valid UK postcode, e.g. EC4M 7RF")
 		} else {
-			setInputError(null); 
-		}
-	}
+			setInputError(null);
+			const postcodeToSearch = postcodeInput.replaceAll(" ", "");
+			navigate(`/area/${postcodeToSearch}`); 
+		}; 
+	}; 
 
 return (
     <div className="form">
