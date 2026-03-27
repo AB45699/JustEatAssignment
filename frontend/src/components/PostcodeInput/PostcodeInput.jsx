@@ -1,6 +1,23 @@
+import { useState } from 'react';
+import validatePostcode from '../../utils/validatePostcode.js';
 import './PostcodeInput.css'; 
 
 function PostcodeInput() {
+	const [postcodeInput, setPostcodeInput] = useState("");
+	const [inputError, setInputError] = useState(null);
+
+	const handleChange = (e) => {
+		setPostcodeInput(e.target.value);
+	}; 
+
+	const onSubmit = () => {
+		if (!validatePostcode(postcodeInput)) {
+			setInputError("Please enter a valid UK postcode, e.g. EC4M 7RF")
+		} else {
+			setInputError(null); 
+		}
+	}
+
 return (
     <div className="form">
         <h1 className="form__title">Order a takeaway</h1>
@@ -10,10 +27,17 @@ return (
                <input
                    id = "postcode-input"
                    type="text"
-                   className="form__postcode-input"
+                   className= {`form__postcode-input ${inputError ? "form__postcode-input--error" : ""}`}
                    placeholder = "Enter postcode"
+				   value={postcodeInput}
+				   onChange={handleChange}
                 />
-                <button type="button" className="form__search-button">Search</button>
+                <button type="button" className="form__search-button" onClick={onSubmit}>Search</button>
+				
+				{inputError && 
+				<div className="form__error">
+					<p className="form__error-text">{inputError}</p>
+				</div>}
             </div>
     </div>
 )
