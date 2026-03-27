@@ -1,7 +1,15 @@
 @font-face {
   font-family: "DMSans";
+  font-weight: 400;
   src: local("DMSans-Regular"),
     url("../src/assets/fonts/DMSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DMSans";
+  font-weight: 800;
+  src: local("DMSans-ExtraBold"),
+    url("../src/assets/fonts/DMSans-ExtraBold.ttf") format("truetype");
 }
 
 * {
@@ -9,6 +17,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "DMSans", Arial;
+  font-weight: 400;
 }
 
 body {
