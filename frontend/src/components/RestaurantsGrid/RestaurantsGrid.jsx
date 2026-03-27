@@ -1,27 +1,9 @@
 import { useParams } from 'react-router'; 
-import { useEffect, useState } from 'react'; 
-import { getRestaurants } from '../../services/restaurants.js';
+import useFetchRestaurants from '../../hooks/useFetchRestaurants.js';
 
 function RestaurantsGrid() {
 	const { postcode } = useParams(); 
-	const [restaurants, setRestaurants] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState(null); 
-
-	const fetchRestaurants = async () => {
-		try {
-			const fetchedRestaurants = await getRestaurants(postcode); 
-			setRestaurants(fetchedRestaurants);
-		} catch (err) {
-			setError(err); //user friendly message
-		} finally {
-			setIsLoading(false);
-		}
-	}; 
-
-	useEffect(()=>{
-		fetchRestaurants();
-	}, [postcode]);
+	const { restaurants, isLoading, error } = useFetchRestaurants(postcode);
 	
 	if (isLoading) {
 		return <p>...loading</p>
