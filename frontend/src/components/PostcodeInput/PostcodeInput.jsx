@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import validatePostcode from '../../utils/validatePostcode.js';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import './PostcodeInput.css'; 
 
 function PostcodeInput({areHeadingsHidden}) {
-	const [postcodeInput, setPostcodeInput] = useState("");
+	const { postcode } = useParams();
+	const [postcodeInput, setPostcodeInput] = useState((postcode?.replaceAll(" ", "")) || "");
 	const [inputError, setInputError] = useState(null);
 	const navigate = useNavigate();
 
