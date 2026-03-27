@@ -5,7 +5,7 @@ import './PostcodeInput.css';
 
 function PostcodeInput({areHeadingsHidden}) {
 	const { postcode } = useParams();
-	const [postcodeInput, setPostcodeInput] = useState((postcode?.replaceAll(" ", "")) || "");
+	const [postcodeInput, setPostcodeInput] = useState(postcode || "");
 	const [inputError, setInputError] = useState(null);
 	const navigate = useNavigate();
 
