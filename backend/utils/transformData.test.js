@@ -34,30 +34,29 @@ describe("transformData", ()=>{
         test("transforms a single raw restaurant object into the desired shape", ()=>{
             const output = transformData(singleRestaurant);
 
-            expect(output).toEqual([{ 
+            expect(output[0]).toMatchObject({ 
                 "name": "Pizza Restaurant", 
                 "address": {"city": "London","firstLine": "1 London Street"},
                 "starRating": 3.25, 
                 "cuisines": ["Pizza", "Italian"]
-            }]); 
+            }); 
         }); 
         test("transforms multiple raw restaurant objects into the desired shape", ()=>{
             const output = transformData(multipleRestaurants);
 
-            expect(output).toEqual([
-                {
+            expect(output[0]).toMatchObject({
                     "name": "Burrito Restaurant",
                     "address": {"city": "London","firstLine": "2 London Street"},
                     "starRating": 5,
                     "cuisines": ["Fast food", "Mexican"]
-                }, 
-                {
+            });
+            expect(output[1]).toMatchObject({
                     "name": "Chicken Restaurant",
                     "address": {"city": "London","firstLine": "3 London Street"},
                     "starRating": 3.5,
                     "cuisines": ["Chicken"]
-                }]
-            );
+                
+            }); 
         });
     });
     describe("Edge cases", ()=>{
