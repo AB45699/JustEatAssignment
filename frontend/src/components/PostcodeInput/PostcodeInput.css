@@ -1,6 +1,7 @@
 .form {
-    border: 2px solid red;
-    padding: 6px;
+    padding: 23px;
+	width: 100%;
+	max-width: 380px;
 }
 
 .form__label {
@@ -15,7 +16,7 @@
 }
 
 .form__postcode-input-container {
-    border: 1px solid rgb(36, 8, 112);
+    position: relative;
 }
 
 .form__title {
@@ -30,4 +31,40 @@
     font-weight: 800;
     color: rgba(59, 58, 57);
     margin-bottom: 15px;
+}
+
+.form__postcode-input {
+    border: 1px solid  rgb(90, 88, 87);
+    width: 100%;
+    height: 60px;
+    border-radius: 30px;
+    padding: 13px;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+}
+
+.form__postcode-input:hover {
+    background-color: rgba(245, 245, 245); 
+}
+
+.form__postcode-input:focus {
+    outline: rgb(90, 88, 87);
+}
+
+.form__search-button {
+    position: absolute; 
+    top: 4px;
+    right: 5px;
+    height: 52px;
+    width: 110px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgba(243, 104, 5);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.form__search-button:hover {
+	cursor: pointer;
 }
