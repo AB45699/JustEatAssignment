@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "DMSans";
+  src: local("DMSans-Regular"),
+    url("../src/assets/fonts/DMSans-Regular.ttf") format("truetype");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DMSans", Arial;
+}
+
+body {
+    background: rgba(246, 243, 239);
+}
