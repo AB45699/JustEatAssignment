@@ -3,6 +3,7 @@
     height: 90px;
     background-color: white;
     box-shadow: 0 3px 10px -2px rgb(194, 188, 188);
+	align-self: stretch;
 }
 
 .header__logo { 
