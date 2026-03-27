@@ -3,7 +3,7 @@ import validatePostcode from '../../utils/validatePostcode.js';
 import { useNavigate } from 'react-router';
 import './PostcodeInput.css'; 
 
-function PostcodeInput() {
+function PostcodeInput({areHeadingsHidden}) {
 	const [postcodeInput, setPostcodeInput] = useState("");
 	const [inputError, setInputError] = useState(null);
 	const navigate = useNavigate();
@@ -24,8 +24,11 @@ function PostcodeInput() {
 
 return (
     <div className="form">
-        <h1 className="form__title">Order a takeaway</h1>
-        <h2 className="form__subtitle">Find restaurants delivering near you...</h2>
+		{!areHeadingsHidden && 
+			<>
+        		<h1 className="form__title">Order a takeaway</h1>
+        		<h2 className="form__subtitle">Find restaurants delivering near you...</h2>
+			</>}
             <div className="form__postcode-input-container">
                <label htmlFor="postcode-input" className="form__label"> Search for a postcode: </label>
                <input

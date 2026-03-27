@@ -7,7 +7,7 @@ function SearchPage() {
 	return (
 		<div className="search-page">
 			<Header logo={Logo}/>
-			<PostcodeInput />
+			<PostcodeInput areHeadingsHidden={false}/>
 		</div>
 	)
 };
