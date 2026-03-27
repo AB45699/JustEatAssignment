@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router'; 
-import SearchPage from '../pages/SearchPage.jsx';
+import SearchPage from '../pages/SearchPage/SearchPage.jsx';
 
 function AppRouter() {
 	return (
