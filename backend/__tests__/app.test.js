@@ -62,6 +62,9 @@ describe("app", ()=>{
                     expect(restaurant).toHaveProperty("starRating");
                     expect(typeof(restaurant.starRating)).toBe("number");
 
+					expect(restaurant).toHaveProperty("logoUrl");
+					expect(typeof(restaurant.logoUrl)).toBe("string");
+
                     expect(restaurant).toHaveProperty("cuisines");
                     expect(Array.isArray(restaurant.cuisines)).toBe(true);
 
