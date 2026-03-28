@@ -1,6 +1,6 @@
 import { getRestaurants } from "./restaurants.js";
 
-const mockData = { restaurants: [
+const mockData = [
 			{
 				"name": "Zam Zam Grill",
 				"address": {"city": "London","firstLine": "51 Hackney Road"},
@@ -13,8 +13,7 @@ const mockData = { restaurants: [
 				"starRating": 4,
 				"cuisines": ["Chicken","Burgers","Collect stamps","Deals"]
 			}
-		]
-	};
+		];
 
 beforeEach(()=>{
 	global.fetch = vi.fn();
@@ -28,25 +27,11 @@ describe("getRestaurants", ()=>{
 	it("fetches restaurant data successfully", async ()=>{
 		global.fetch.mockResolvedValueOnce({
 			ok: true,
-			json: async () => mockData
+			json: async () => ({restaurants: mockData})
 		});
 
 		const output = await getRestaurants("EC4M7RF");
-		expect(output).toEqual([
-						{
-							"name": "Zam Zam Grill",
-							"address": {"city": "London","firstLine": "51 Hackney Road"},
-							"starRating": 5,
-							"cuisines": [ "Kebab","Chicken","Halal","Collect stamps","Deals"]
-						},
-						{
-							"name": "Morley's® - Brick Lane",
-							"address": { "city": "London","firstLine": "60 Brick Lane"},
-							"starRating": 4,
-							"cuisines": ["Chicken","Burgers","Collect stamps","Deals"]
-						}
-					]
-				);
+		expect(output).toEqual(mockData);
 		expect(global.fetch).toHaveBeenCalledWith("http://localhost:9090/api/restaurants?postcode=EC4M7RF");
 	}); 
 	it("throws an error if fetch fails due to an HTTP error", async ()=>{
