@@ -5,11 +5,11 @@ function RestaurantCard({restaurant}) {
 	let { name, address, starRating, logoUrl, cuisines } = restaurant;
 	
 	logoUrl = logoUrl || FoodStockImage; 
-	cuisines = cuisines = cuisines.slice(0, 3).join(', ');
+	cuisines = cuisines.slice(0, 3).join(', ');
 
 	return (
 		<div className="restaurant-item">
-			<div className="restaurant-item-container">
+			<div className="restaurant-item__container">
 				<img className="restaurant-item__logo" src={logoUrl} alt="logo image"/> 
 				<div className="restaurant-item__details-container">
 					<p className="restaurant-item__name">{name}</p>
@@ -17,7 +17,6 @@ function RestaurantCard({restaurant}) {
 						<p>{address.city}, {address.firstLine}</p>
 					</div>
 					<p className="restaurant-item__rating">★ {starRating}</p>
-
 					<div className="restaurant-item__cuisines-container">
 						<p>{cuisines}</p>
 					</div>
@@ -26,6 +25,6 @@ function RestaurantCard({restaurant}) {
 			</div>
 		</div>
 	)
-}; //all fallbacks. bem check.
+}; 
 
 export default RestaurantCard;
