@@ -4,8 +4,10 @@
 	align-items: center;
 }
 
-.results-page .header {
-	position: relative;
+.results-page .header-container {
+	position: sticky;
+	top: 0;
+	width: 100%;
 }
 
 .results-page .form__postcode-input-container {
@@ -21,4 +23,8 @@
 
 .results-page .form__search-button {
 	height: 42px;
+}
+
+.results-page .form {
+	padding: 0px;
 }

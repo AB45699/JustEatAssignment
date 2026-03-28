@@ -7,8 +7,10 @@ import './ResultsPage.css';
 function ResultsPage() {
 	return (
 		<div className="results-page">
-			<Header logo={CroppedLogo}/>
-			<PostcodeInput areHeadingsHidden={true}/>
+			<div className="header-container">
+				<Header logo={CroppedLogo}/>
+				<PostcodeInput areHeadingsHidden={true}/>
+			</div>
 			<RestaurantsGrid />
 		</div>
 	)
