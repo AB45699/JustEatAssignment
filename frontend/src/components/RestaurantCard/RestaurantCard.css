@@ -1,4 +1,44 @@
-.restaurant-grid__item {
-	border: 1px solid blue;
+.restaurant-item {
 	border-radius: 16px;
+	background-color: white;
+}
+
+.restaurant-item-container {
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+}
+
+.restaurant-item__logo {
+	border-radius: 20px;
+	height: 90px;
+}
+
+.restaurant-item__details-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	margin-left: 18px;
+}
+
+.restaurant-item__name {
+	font-weight: 800;
+	font-size: 1.17rem;
+}
+
+.restaurant-item__address-container {
+	display: flex;
+	flex-direction: row;
+	font-size: 0.9rem;
+}
+
+.restaurant-item__rating {
+	font-weight: 800;
+	font-size: 0.9rem;
+}
+
+.restaurant-item__cuisines-container {
+	display: flex;
+	flex-direction: row;
+	font-size: 0.8rem;
 }

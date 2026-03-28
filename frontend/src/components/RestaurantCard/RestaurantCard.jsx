@@ -1,17 +1,31 @@
 import './RestaurantCard.css';
+import FoodStockImage from '../../assets/images/food-stock-image.jpg';
 
 function RestaurantCard({restaurant}) {
+	let { name, address, starRating, logoUrl, cuisines } = restaurant;
+	
+	logoUrl = logoUrl || FoodStockImage; 
+	cuisines = cuisines = cuisines.slice(0, 3).join(', ');
+
 	return (
-		<div className="restaurant-grid__item">
-			{restaurant.name}
-			{restaurant.address.city}
-			{restaurant.address.firstLine}
-			{restaurant.starRating}
-			{restaurant.cuisines.map((cuisine)=>{
-				return (<p>{cuisine}</p>)
-			})}
+		<div className="restaurant-item">
+			<div className="restaurant-item-container">
+				<img className="restaurant-item__logo" src={logoUrl} alt="logo image"/> 
+				<div className="restaurant-item__details-container">
+					<p className="restaurant-item__name">{name}</p>
+					<div className="restaurant-item__address-container">
+						<p>{address.city}, {address.firstLine}</p>
+					</div>
+					<p className="restaurant-item__rating">★ {starRating}</p>
+
+					<div className="restaurant-item__cuisines-container">
+						<p>{cuisines}</p>
+					</div>
+				</div>
+
 			</div>
+		</div>
 	)
-}; 
+}; //all fallbacks. bem check.
 
 export default RestaurantCard;
