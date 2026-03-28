@@ -26,6 +26,13 @@
 	font-size: 1.6rem;
 }
 
+.error-message {
+	padding: 8px;
+	margin-top: 50px;
+	font-weight: 800;
+	font-size: 1.6rem;
+}
+
 .restaurants-no-results__subtitle {
 	font-weight: 400;
 	font-size: 1.2rem;

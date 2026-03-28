@@ -12,7 +12,7 @@ function RestaurantsGrid() {
 	}; 
 
 	if (error) {
-		return <p>error</p>
+		return <h1 className="error-message">{error}</h1>
 	}; 
 
 	return (
