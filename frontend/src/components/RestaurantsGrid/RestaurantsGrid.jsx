@@ -16,14 +16,23 @@ function RestaurantsGrid() {
 	}; 
 
 	return (
-		<div className="restaurants__container">
-			<h1 className="restaurants__title">{restaurants.length} restaurants within "{postcode}"</h1>
-			<div className="restaurants__grid">
-				{restaurants.map((restaurant, index)=>{
-					return <RestaurantCard key={index} restaurant={restaurant}/>
-				})}
+		<>
+			{restaurants.length === 0 ? (
+				<div className="restaurants-no-results">
+					<h1 className="restaurants-no-results__title">No results for {postcode}!</h1>
+					<h2 className="restaurants-no-results__subtitle">Try searching for another postcode.</h2>
+				</div>
+			) : (
+				<div className="restaurants__container">
+				<h1 className="restaurants__title">{restaurants.length} restaurants within "{postcode}"</h1>
+				<div className="restaurants__grid">
+					{restaurants.map((restaurant, index)=>{
+						return <RestaurantCard key={index} restaurant={restaurant}/>
+					})}
+				</div>
 			</div>
-		</div>
+			)}
+		</>
 	)
 }; 
 

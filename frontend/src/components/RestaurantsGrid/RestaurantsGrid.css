@@ -13,3 +13,20 @@
 	font-size: 1.33rem;
 	margin-bottom: 10px;
 }
+
+.restaurants-no-results {
+	display: flex;
+	flex-direction: column;
+	margin-top: 50px;
+	padding: 8px
+}
+
+.restaurants-no-results__title {
+	font-weight: 800;
+	font-size: 1.6rem;
+}
+
+.restaurants-no-results__subtitle {
+	font-weight: 400;
+	font-size: 1.2rem;
+}
