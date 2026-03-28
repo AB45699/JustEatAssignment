@@ -8,6 +8,7 @@ beforeEach(()=>{
             "name": "Pizza Restaurant",
             "address": {"city": "London","firstLine": "1 London Street"},
             "rating": {"starRating": 3.25},
+			"logoUrl": "https://test/uk/images/restaurants/60392.gif",
             "cuisines": [{"name": "Pizza"},{"name": "Italian"}]
         }]; 
 
@@ -16,12 +17,14 @@ beforeEach(()=>{
             "name": "Burrito Restaurant",
             "address": {"city": "London","firstLine": "2 London Street"},
             "rating": {"starRating": 5},
+			"logoUrl": "https://test/uk/images/restaurants/60392.gif",
             "cuisines": [{"name": "Fast food"},{"name": "Mexican"}]
         },
         {
             "name": "Chicken Restaurant",
             "address": {"city": "London","firstLine": "3 London Street"},
             "rating": {"starRating": 3.5},
+			"logoUrl": "https://test/uk/images/restaurants/60392.gif",
             "cuisines": [{"name": "Chicken"}]
         }];
 });
@@ -38,6 +41,7 @@ describe("transformData", ()=>{
                 "name": "Pizza Restaurant", 
                 "address": {"city": "London","firstLine": "1 London Street"},
                 "starRating": 3.25, 
+				"logoUrl": "https://test/uk/images/restaurants/60392.gif",
                 "cuisines": ["Pizza", "Italian"]
             }); 
         }); 
@@ -48,12 +52,14 @@ describe("transformData", ()=>{
                     "name": "Burrito Restaurant",
                     "address": {"city": "London","firstLine": "2 London Street"},
                     "starRating": 5,
+					"logoUrl": "https://test/uk/images/restaurants/60392.gif",
                     "cuisines": ["Fast food", "Mexican"]
             });
             expect(output[1]).toMatchObject({
                     "name": "Chicken Restaurant",
                     "address": {"city": "London","firstLine": "3 London Street"},
                     "starRating": 3.5,
+					"logoUrl": "https://test/uk/images/restaurants/60392.gif",
                     "cuisines": ["Chicken"]
                 
             }); 
@@ -98,6 +104,12 @@ describe("transformData", ()=>{
 
                 expect(transformData(noRatingData)[0]).toHaveProperty("starRating", 0);
             });
+			test("Should return an empty string if logoUrl key is missing", ()=>{
+				const {logoUrl, ...rest} = singleRestaurant[0];
+                const noLogoUrlData = [rest]; 
+
+                expect(transformData(noLogoUrlData)[0]).toHaveProperty("logoUrl", "");
+			});
         });
         describe("Null handling", ()=>{
             test("Should return cuisines key as an empty array if cuisines is null", ()=>{
@@ -127,6 +139,11 @@ describe("transformData", ()=>{
 
                 expect(transformData(nullRatingData)[0]).toHaveProperty("starRating", 0);
             });
+			test("Should return an empty string if logoUrl key is null", ()=>{
+                const nullLogoUrlData = [{...singleRestaurant[0], "logoUrl": null}]; 
+
+                expect(transformData(nullLogoUrlData)[0]).toHaveProperty("logoUrl", "");
+			});
         });
         describe("Empty value handling", ()=>{
             test("Should return cuisines key as an empty array if cuisines is empty", ()=>{
@@ -146,6 +163,11 @@ describe("transformData", ()=>{
                 expect(output[0]).toHaveProperty("address.city", "Unavailable");
                 expect(output[0]).toHaveProperty("address.firstLine", "Unavailable");
             });
+			test("Should return an empty string if logoUrl key is empty string", ()=>{
+                const emptyLogoUrlData = [{...singleRestaurant[0], "logoUrl": ""}]; 
+
+                expect(transformData(emptyLogoUrlData)[0]).toHaveProperty("logoUrl", "");
+			});
         });
     }); 
     describe("Mutability tests", ()=>{
@@ -158,12 +180,14 @@ describe("transformData", ()=>{
                     "name": "Burrito Restaurant",
                     "address": {"city": "London","firstLine": "2 London Street"},
                     "rating": {"starRating": 5},
+					"logoUrl": "https://test/uk/images/restaurants/60392.gif",
                     "cuisines": [{"name": "Fast food"},{"name": "Mexican"}]
                 },
                 {
                     "name": "Chicken Restaurant",
                     "address": {"city": "London","firstLine": "3 London Street"},
                     "rating": {"starRating": 3.5},
+					"logoUrl": "https://test/uk/images/restaurants/60392.gif",
                     "cuisines": [{"name": "Chicken"}]
                 }
             ]);

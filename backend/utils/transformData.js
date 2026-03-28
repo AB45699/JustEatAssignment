@@ -1,6 +1,6 @@
 function transformData(restaurants = []) {
     return restaurants.map((restaurant)=>{
-        let {name, address, rating, cuisines} = restaurant;
+        let {name, address, rating, cuisines, logoUrl} = restaurant;
 
         cuisines = (cuisines ?? []).map((cuisine)=>cuisine.name); 
         address = {
@@ -12,6 +12,7 @@ function transformData(restaurants = []) {
             "name": name || "Restaurant", 
             "address": address, 
             "starRating": rating?.starRating ?? 0, 
+			"logoUrl": logoUrl ?? "",
             "cuisines": cuisines
         };
     });
