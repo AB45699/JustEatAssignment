@@ -7,6 +7,9 @@ function useFetchRestaurants(postcode) {
 	const [error, setError] = useState(null); 
 
 	const fetchRestaurants = async () => {
+		setIsLoading(true);
+		setError(null);
+
 		try {
 			const fetchedRestaurants = await getRestaurants(postcode); 
 			setRestaurants(fetchedRestaurants);
