@@ -13,10 +13,10 @@ vi.mock('react-router', async()=>{
 }); 
 
 const errorMessageText = /enter a valid/;
-let componentSetUp, mockNavigate; 
+let renderComponent, mockNavigate; 
 
 beforeEach(()=>{
-	componentSetUp = (areHeadingsHidden) => {
+	renderComponent = (areHeadingsHidden) => {
 		render(
 			<MemoryRouter>
 				<PostcodeInput areHeadingsHidden={areHeadingsHidden}/>
@@ -41,7 +41,7 @@ afterEach(()=>{
 describe("PostcodeInput", ()=>{
 	describe("Rendering tests", ()=>{
 		it("renders the form on load when areHeadingsHidden is false", ()=>{
-			const { postcodeInput, searchButton } = componentSetUp(false);
+			const { postcodeInput, searchButton } = renderComponent(false);
 
 			const title = screen.getByRole("heading", {name: /takeaway/}); 
 			const subtitle = screen.getByRole("heading", {name: /restaurants/}); 
@@ -52,7 +52,7 @@ describe("PostcodeInput", ()=>{
 			});
 		});
 		it("renders the form on load when areHeadingsHidden is true", ()=>{
-			const { postcodeInput, searchButton } = componentSetUp(true);
+			const { postcodeInput, searchButton } = renderComponent(true);
 
 			const title = screen.queryByRole("heading", {name: /takeaway/}); 
 			const subtitle = screen.queryByRole("heading", {name: /restaurants/}); 
@@ -66,19 +66,19 @@ describe("PostcodeInput", ()=>{
 	describe("Input behaviour", ()=>{
 		it("updates the input's value when user types", async ()=>{
 			const user = userEvent.setup();
-			const { postcodeInput } = componentSetUp(false);  
+			const { postcodeInput } = renderComponent(false);  
 
 			await user.type(postcodeInput, "EC4M7RF");
 			expect(postcodeInput).toHaveValue("EC4M7RF");
 		}); 
 		it("the input element has a value of the postcode parameter if defined", ()=>{
 			useParams.mockReturnValue({postcode: "EC4M7RF"});
-			const { postcodeInput } = componentSetUp(false);
+			const { postcodeInput } = renderComponent(false);
 
 			expect(postcodeInput).toHaveValue("EC4M7RF");
 		});
 		it("the input element has a value of empty string if the postcode parameter is undefined", ()=>{
-			const { postcodeInput } = componentSetUp(false);
+			const { postcodeInput } = renderComponent(false);
 		
 			expect(postcodeInput).toHaveValue("");
 		});
@@ -89,7 +89,7 @@ describe("PostcodeInput", ()=>{
 
 		beforeEach(()=>{
 			user = userEvent.setup();
-			({ postcodeInput, searchButton } = componentSetUp(false));
+			({ postcodeInput, searchButton } = renderComponent(false));
 		});
 
 		it("shows an error message when an invalid postcode is submitted", async () => {
