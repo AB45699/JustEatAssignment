@@ -1,11 +1,12 @@
 .restaurants__grid {
 	display: grid;
 	gap: 1rem;
-	grid-template-columns: repeat(auto-fit, minmax(176px, 1fr));
+	grid-template-columns: 1fr;
 }
 
 .restaurants__container {
 	padding: 13px;
+	width: 100%;
 }
 
 .restaurants__title { 
@@ -36,4 +37,16 @@
 .restaurants-no-results__subtitle {
 	font-weight: 400;
 	font-size: 1.2rem;
+}
+
+@media (min-width: 768px) {
+    .restaurants__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .restaurants__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }

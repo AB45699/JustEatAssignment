@@ -14,11 +14,11 @@ function RestaurantCard({restaurant}) {
 				<div className="restaurant-item__details-container">
 					<p className="restaurant-item__name">{name}</p>
 					<div className="restaurant-item__address-container">
-						<p>{address.city}, {address.firstLine}</p>
+						<p className="restaurant-item__address">{address.city}, {address.firstLine}</p>
 					</div>
 					<p className="restaurant-item__rating">★ {starRating}</p>
 					<div className="restaurant-item__cuisines-container">
-						<p>{cuisines}</p>
+						<p className="restaurant-item__cuisines">{cuisines}</p>
 					</div>
 				</div>
 
