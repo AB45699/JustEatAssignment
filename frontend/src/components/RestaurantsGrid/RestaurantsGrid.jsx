@@ -2,13 +2,14 @@ import { useParams } from 'react-router';
 import useFetchRestaurants from '../../hooks/useFetchRestaurants.js';
 import RestaurantCard from '../RestaurantCard/RestaurantCard.jsx';
 import './RestaurantsGrid.css';
+import Loading from '../Loading/Loading.jsx';
 
 function RestaurantsGrid() {
 	const { postcode } = useParams(); 
 	const { restaurants, isLoading, error } = useFetchRestaurants(postcode);
 	
 	if (isLoading) {
-		return <p>...loading</p>
+		return <Loading />
 	}; 
 
 	if (error) {
