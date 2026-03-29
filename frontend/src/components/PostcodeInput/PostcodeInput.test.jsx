@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'; 
 import PostcodeInput from './PostcodeInput.jsx';
 import { MemoryRouter, useNavigate, useParams } from 'react-router';
-import { userEvent } from '@testing-library/user-event';
+import userEvent  from '@testing-library/user-event';
 
 vi.mock('react-router', async()=>{
 	const actual = await vi.importActual('react-router')
