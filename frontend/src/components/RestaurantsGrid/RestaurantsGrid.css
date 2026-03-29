@@ -35,7 +35,6 @@
 }
 
 .restaurants-no-results__subtitle {
-	font-weight: 400;
 	font-size: 1.2rem;
 }
 
@@ -43,10 +42,31 @@
     .restaurants__grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+	.restaurants__title {
+        font-size: 1.4rem;
+    }
+
 }
 
 @media (min-width: 1200px) {
     .restaurants__grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
+	.restaurants__container {
+		max-width: 1400px;
+	}
+
+	.restaurants__title {
+		font-size: 1.5rem;
+	}
+
+	.restaurants-no-results__title, .error-message {
+		font-size: 1.9rem;
+	}
+
+	.restaurants-no-results__subtitle {
+		font-size: 1.5rem;
+	}
 }

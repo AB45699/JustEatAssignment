@@ -28,3 +28,32 @@
 .results-page .form {
 	padding: 0px;
 }
+
+@media (min-width: 768px) {
+    .results-page .form__postcode-input {
+        height: 55px;
+    }
+
+    .results-page .form__search-button {
+        height: 47px;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .results-page .form__postcode-input-container {
+		max-width: 700px;
+        left: 50%;
+        right: auto;
+		top: 50%;
+        transform: translate(-50%, -50%);
+	}
+
+	.results-page .form__postcode-input {
+        height: 60px;
+    }
+
+    .results-page .form__search-button {
+        height: 52px;
+    }
+}
