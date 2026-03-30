@@ -99,6 +99,7 @@ describe("PostcodeInput", ()=>{
 			await user.click(searchButton);
 
 			expect(screen.getByText(errorMessageText)).toBeInTheDocument();
+			expect(mockNavigate).not.toHaveBeenCalled();
 		}); 
 		it("clears the error message once a valid postcode is submitted", async ()=>{
 			await user.type(postcodeInput, "EC4M&RF");
