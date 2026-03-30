@@ -99,6 +99,10 @@
 	::placeholder {
 		font-size: 1.1rem;
 	}
+
+	.form__error-text {
+		font-size: 1rem;
+	}
 }
 
 @media (min-width: 1200px) {
@@ -120,5 +124,9 @@
 
 	.form__subtitle {
 		font-size: 1.8rem;
+	}
+
+	.form__error-text {
+		font-size: 1.2rem;
 	}
 }
