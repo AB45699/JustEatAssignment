@@ -2,7 +2,7 @@
 
 ## Requirements ##
 
-This web application displays the ✅name, ✅cuisines, ✅rating (as a number), and ✅address of 10 restaurants within specific postcodes, obtained from the JustEat API endpoint.
+This web application displays the ✅name, ✅cuisines, ✅rating (as a number), and ✅address of 10 restaurants within specific postcodes, obtained from the JustEat API endpoint. (Extensive Git history included!)
 
 ## How to run the application 
 
@@ -10,27 +10,34 @@ This web application displays the ✅name, ✅cuisines, ✅rating (as a number),
 ```bash
 git clone https://github.com/AB45699/JustEatAssignment.git
 ```
-2. Navigate to the backend server and then install the dependencies: 
+2. Navigate to the backend folder:
 ```bash
 cd JustEatAssignment/backend
+```
+3. Install backend dependencies:
+```bash
 npm install 
 ```
-3. Run the backend server. **Ensure PORT 9090 is available**
+
+4. Run the backend server. **Ensure PORT 9090 is available**
 ```bash
 npm run dev
 ```
 The backend should now be available on http://localhost:9090/ in your browser.
 
-4. Open a new terminal and navigate to the Frontend server. Install its dependencies: 
+5. Open a new terminal and navigate to the frontend folder. 
 ```bash
 cd JustEatAssignment/frontend
+```
+6. Install frontend dependencies: 
+```bash
 npm install
 ```
-
-5. To start the Frontend, run the command:
+7. To start the Frontend, run the command:
 ```bash
 npm run dev
 ```
+The frontend should now be available on the ``Local:`` link, for example: http://localhost:5173/ 
 
 ## How to run the tests
 The application has been built with robust test-driven development practices. I use mocking extensively so tests are isolated and do not depend on a real server response. 
@@ -45,7 +52,7 @@ cd JustEatAssignment/backend
 npm run test
 ```
 
-- To run the back end utility function tests (for those within ``backend/utils``), within the backend folder run: 
+- To run the backend utility function tests (for functions within ``backend/utils``), within the backend folder run: 
 ```bash 
 npm run test-utils 
 ```
@@ -65,7 +72,7 @@ npm run test
 
 * **A fully tested Express.js backend**: I decided to create a backend to validate and normalise raw JustEat API data before it is served to the frontend, enforcing strong **separation of concerns** by keeping the frontend focused only on displaying data.
 
-* **MVC architecture**: There is clear separation of responsibilities with controllers (e.g. `/backend/controllers/restaurants.js`) handling request/response logic. This application has no database layer, hence no Model, and for this project I determined a View interface is unnecessary.
+* **Inspired by MVC architecture**: There is clear separation of responsibilities with controllers (e.g. `/backend/controllers/restaurants.js`) handling request/response logic. This application has no database layer, hence no Model, and for this project I determined a View interface is unnecessary as my backend is not public/hosted.
 
 * **Fully tested utility functions**:  These functions are implemented within the controller to aid in validation, data transformation and error object creation.
 
@@ -86,33 +93,33 @@ npm run test
 
 ## Trade offs ##
 
-I chose to implement postcode validation on both the frontend and backend. This was to balance user experience with server protection.
+I chose to implement postcode validation on both the frontend and backend, despite this being duplicated logic. This was to balance user experience with server protection. **The table below describes how user-feedback and server protection are affected with postcode validation logic placed in different parts of the app**. 
 
 | | Frontend only | Backend only | Both (chosen) |
 |---|---|---|---|
-| **User feedback** | Instant, no network request | Slightly slower user-feedback | Instant |
+| **User feedback** | Instant, no request to backend | Slightly slower user-feedback | Instant |
 | **Server protection** | Unprotected - invalid input can be passed directly (e.g. via Postman) | Protected | Protected |
 | **Logic duplication** | Single location | Single location | Duplicated across both |
 
-The duplicated logic is an accepted tradeoff. 
+
 
 ## Challenges ##
 
-**Testing error state clearance within a hook between fetches**: 
-- testing that a previously errored fetch clears its error state on a successful refetch in the ``useFetchRestaurants.test.js`` hook required simulating the hook being called twice with different arguments. It was unknown to me how to stimulate this with ``vitest``. Through the [official documentation](https://testing-library.com/docs/react-testing-library/api/#rerender) and YouTube, I discovered `renderHook` can use `initialProps` and a `rerender` function, re-triggering the `useEffect` with a new postcode. Combined with `mockRejectedValueOnce` and `mockResolvedValueOnce`, I could assert the full state transition in a single test.
+**Testing if error state cleared in the ``useFetchRestaurants`` hook**: 
+- testing that the hook clears its error state upon a successful re-fetch required simulating the hook being called twice, with different arguments. It was unknown to me how to stimulate this with ``vitest``. Through the [official documentation](https://testing-library.com/docs/react-testing-library/api/#rerender) and YouTube, I discovered `renderHook` can use `initialProps` and a `rerender` function, re-triggering the `useEffect` with a new postcode. Combined with `mockRejectedValueOnce` and `mockResolvedValueOnce`, I could assert the full state transition in a single test.
  
 
 ## Assumptions ##
 
 - A restaurant with a null, missing, or empty `name` property is retained and replaced with a `"Restaurant"` string, rather than omitted. If a restaurant partner is not listed, they risk missing out on orders. In reality, any restaurant listed with this fallback string should be logged and reviewed.
-- If `address` data is null/missing/empty, `city` and `firstLine` return as `"Unavailable"`. Considering the restaurant has returned within the postcode searched, it can be assumed it is not too far from the customer. This should also be logged and reviewed.
-- Postcode is not displayed on each restaurant card. I considered `city` and `firstLine` are sufficient.
-- Null or missing `rating`/`starRating` data is returned as `null` and displayed as "No ratings yet" in the interface.
-- A valid postcode that passes `validatePostcode()` but returns an empty array is treated as a successful fetch and the user is shown an appropriate message prompting them to try another postcode.
+- If `address` data is null/missing/empty, `city` and `firstLine` return as `"Unavailable"`. Considering the restaurant has returned within the postcode searched (due to other properties e.g coordinates present), it can be assumed it is not too far from the customer. This should also be logged and reviewed.
+- Postcode is not displayed on each restaurant card. I considered `city` and `firstLine` to be sufficient.
+- Null or missing `rating`/`starRating` data is returned as `null` by ``transformData.js`` and displayed as "No ratings yet". This string would be a placeholder while the issue is reviewed.  I thought this is better than showing a restaurant with valid reviews as having 0 stars. 
+- A postcode that passes `validatePostcode()` but returns an empty array is treated as a successful fetch and the user is shown a 'no results' message prompting them to try another postcode.
 
 ## Unclear concepts ##
 - Interface choice: the brief left this open-ended. I chose a web interface to best showcase the data visually and demonstrate frontend skills.
-- Whether spaces in postcodes should be handled: UK postcodes are commonly written with a space (e.g. EC4M 7RF) but the API accepts them without. It wasn't specified whether to handle this. I strip spaces before passing the postcode to the API.
+- Whether spaces in postcodes should be handled: UK postcodes are commonly written with a space (e.g. EC4M 7RF) but the JustEat API accepts them without. It wasn't specified whether to handle this. I strip spaces before passing the postcode to the API.
 - Error handling for the API: the brief doesn't mention what to do if the JustEat API is unavailable or returns an error. I handled HTTP errors (e.g. 403, 500) and network/API failures separately, returning appropriate status codes and messages to the client.
 
 
@@ -121,6 +128,8 @@ The duplicated logic is an accepted tradeoff.
 - Add a loading skeleton instead of a spinner.
 - Allow users to filter restaurants by cuisine, rating etc. 
 - Allow users to click on a card to navigate to a new page to view more details/menu for that specific restaurant. 
-- Add pagination or infinite scroll to display more than 10 results.
+- Stricter postcode validation: the current regex only checks for alphanumeric characters within a length range, not actual UK postcode format patterns, meaning inputs like `"12345"` would pass.
+
+
 
 ### *Thank you for viewing my project! 🙂* ###
