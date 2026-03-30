@@ -25,7 +25,7 @@ function RestaurantCard({restaurant}) {
 					</div>
 
 					<p className="restaurant-item__rating">
-						★ {starRating}
+						{starRating !== null ? `★ ${starRating}` : "No ratings yet"}
 					</p>
 
 					<div className="restaurant-item__cuisines-container">

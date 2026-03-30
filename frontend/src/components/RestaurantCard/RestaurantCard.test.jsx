@@ -37,4 +37,16 @@ describe("RestaurantCard", ()=>{
 		expect(screen.getByText("Chicken, Mexican, Italian")).toBeInTheDocument();
 		expect(screen.queryByText("Kebab")).not.toBeInTheDocument();
 	}); 
+	it("renders 'No ratings yet' if starRating is null", ()=>{
+		render(<RestaurantCard restaurant={{...mockRestaurantData, starRating: null}}/>)
+
+		expect(screen.getByText("No ratings yet")).toBeInTheDocument();
+		expect(screen.queryByText(/★/)).not.toBeInTheDocument();
+	});
+	it("will render ratings text as ★ 0 if rating is 0", ()=>{
+		render(<RestaurantCard restaurant={{...mockRestaurantData, starRating: 0}}/>)
+
+		expect(screen.getByText("★ 0")).toBeInTheDocument();
+		expect(screen.queryByText("No ratings yet")).not.toBeInTheDocument();
+	});
 }); 
