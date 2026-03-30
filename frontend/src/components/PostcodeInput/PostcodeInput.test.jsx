@@ -118,11 +118,5 @@ describe("PostcodeInput", ()=>{
 
 			expect(mockNavigate).toHaveBeenCalledWith("/area/EC4M7RF");
 		});
-		it("will strip spaces from the valid user input when navigating", async ()=>{
-			await user.type(postcodeInput, "EC4M  7RF    ");
-			await user.click(searchButton);
-
-			expect(mockNavigate).toHaveBeenCalledWith("/area/EC4M7RF");
-		}); 
 	});
 });

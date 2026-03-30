@@ -18,8 +18,7 @@ function PostcodeInput({areHeadingsHidden}) {
 			setInputError("Please enter a valid UK postcode, e.g. EC4M 7RF")
 		} else {
 			setInputError(null);
-			const postcodeToSearch = postcodeInput.replaceAll(" ", "");
-			navigate(`/area/${postcodeToSearch}`); 
+			navigate(`/area/${postcodeInput}`); 
 		}; 
 	}; 
 
