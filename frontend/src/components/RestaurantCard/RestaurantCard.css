@@ -7,7 +7,7 @@
 }
 
 .restaurant-item:hover {
-	background: rgb(245, 245, 245)
+	background: rgb(245, 245, 245);
 }
 
 .restaurant-item__container {
@@ -86,7 +86,6 @@
         padding: 12px;
     }
 }
-
 
 @media (min-width: 1200px) {
     .restaurant-item__name {
