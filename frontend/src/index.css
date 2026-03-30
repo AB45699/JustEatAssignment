@@ -2,21 +2,14 @@
   font-family: "DMSans";
   font-weight: 400;
   src: local("DMSans-Regular"),
-    url("../src/assets/fonts/DMSans-Regular.ttf") format("truetype");
+    url("./assets/fonts/DMSans-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "DMSans";
   font-weight: 800;
   src: local("DMSans-ExtraBold"),
-    url("../src/assets/fonts/DMSans-ExtraBold.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "DMSans";
-  font-weight: 600;
-  src: local("DMSans-SemiBold"),
-    url("../src/assets/fonts/DMSans-SemiBold.ttf") format("truetype");
+    url("./assets/fonts/DMSans-ExtraBold.ttf") format("truetype");
 }
 
 * {
