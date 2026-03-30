@@ -23,7 +23,7 @@ beforeEach(()=>{
         {
             "name": "Chicken Restaurant",
             "address": {"city": "London","firstLine": "3 London Street"},
-            "rating": {"starRating": 3.5},
+            "rating": {"starRating": 0},
 			"logoUrl": "https://test/uk/images/restaurants/60392.gif",
             "cuisines": [{"name": "Chicken"}]
         }];
@@ -58,7 +58,7 @@ describe("transformData", ()=>{
             expect(output[1]).toMatchObject({
                     "name": "Chicken Restaurant",
                     "address": {"city": "London","firstLine": "3 London Street"},
-                    "starRating": 3.5,
+                    "starRating": 0,
 					"logoUrl": "https://test/uk/images/restaurants/60392.gif",
                     "cuisines": ["Chicken"] 
             }); 
@@ -92,16 +92,16 @@ describe("transformData", ()=>{
                 expect(output[0]).toHaveProperty("address.city", "Unavailable");
                 expect(output[0]).toHaveProperty("address.firstLine", "Unavailable");
             });
-            test("Should return starRating key as 0 if the starRating key is missing", ()=>{
+            test("Should return starRating key as null if the starRating key is missing", ()=>{
                 const noStarRatingData = [{...singleRestaurant[0], "rating": {}}]; 
 
-                expect(transformData(noStarRatingData)[0]).toHaveProperty("starRating", 0);
+                expect(transformData(noStarRatingData)[0]).toHaveProperty("starRating", null);
             });
-            test("Should return starRating key as 0 if the rating key is missing", ()=>{
+            test("Should return starRating key as null if the rating key is missing", ()=>{
                 const {rating, ...rest} = singleRestaurant[0];
                 const noRatingData = [rest]; 
 
-                expect(transformData(noRatingData)[0]).toHaveProperty("starRating", 0);
+                expect(transformData(noRatingData)[0]).toHaveProperty("starRating", null);
             });
 			test("Should return an empty string if logoUrl key is missing", ()=>{
 				const {logoUrl, ...rest} = singleRestaurant[0];
@@ -128,15 +128,15 @@ describe("transformData", ()=>{
                 expect(output[0]).toHaveProperty("address.city", "Unavailable");
                 expect(output[0]).toHaveProperty("address.firstLine", "Unavailable");
             });
-            test("Should return starRating key as 0 if starRating is null", ()=>{
+            test("Should return starRating key as null if starRating is null", ()=>{
                 const nullStarRatingData = [{...singleRestaurant[0], "rating": {"starRating": null}}];
 
-                expect(transformData(nullStarRatingData)[0]).toHaveProperty("starRating", 0);
+                expect(transformData(nullStarRatingData)[0]).toHaveProperty("starRating", null);
             });
-            test("Should return starRating key as 0 if rating is null", ()=>{
+            test("Should return starRating key as null if rating is null", ()=>{
                 const nullRatingData = [{...singleRestaurant[0], "rating": null}];
 
-                expect(transformData(nullRatingData)[0]).toHaveProperty("starRating", 0);
+                expect(transformData(nullRatingData)[0]).toHaveProperty("starRating", null);
             });
 			test("Should return an empty string if logoUrl key is null", ()=>{
                 const nullLogoUrlData = [{...singleRestaurant[0], "logoUrl": null}]; 
@@ -185,7 +185,7 @@ describe("transformData", ()=>{
                 {
                     "name": "Chicken Restaurant",
                     "address": {"city": "London","firstLine": "3 London Street"},
-                    "rating": {"starRating": 3.5},
+                    "rating": {"starRating": 0},
 					"logoUrl": "https://test/uk/images/restaurants/60392.gif",
                     "cuisines": [{"name": "Chicken"}]
                 }

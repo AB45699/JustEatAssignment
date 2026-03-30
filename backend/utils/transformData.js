@@ -11,7 +11,7 @@ function transformData(restaurants = []) {
         return {
             "name": name || "Restaurant", 
             "address": address, 
-            "starRating": rating?.starRating ?? 0, 
+            "starRating": rating?.starRating ?? null, 
 			"logoUrl": logoUrl ?? "",
             "cuisines": cuisines
         };
