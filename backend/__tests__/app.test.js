@@ -45,7 +45,7 @@ describe("app", ()=>{
                 
                 expect(body.restaurants.length).toBe(10);
             });
-            test("the restaurants (objects) within the array have the required name, address, starRating and cuisines keys", async ()=>{
+            test("the restaurants (objects) within the array have the required name, address, starRating, logoUrl and cuisines keys", async ()=>{
                 mockSuccessfulFetch();
 
                 const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF");
@@ -86,9 +86,7 @@ describe("app", ()=>{
                 expect(body.message).toBe("HTTP error! Status: 403")
             });
             test("handles unsuccessful fetch by responding with a status code of 500 and error message", async () => {
-                global.fetch.mockRejectedValueOnce(
-                    new Error ("Network error")
-                ); 
+                global.fetch.mockRejectedValueOnce(new Error ("Network error")); 
 
                 const { body } = await request(app).get("/api/restaurants?postcode=EC4M7RF").expect(500);
                 
@@ -115,8 +113,14 @@ describe("app", ()=>{
                 });
 
                 const { body } = await request(app).get("/api/restaurants?postcode=AXAA123").expect(200);
+
                 expect(body.restaurants).toEqual([]);
             });
-        })
+			test("should strip spaces within postcode queries when fetching", async () => {
+				await request(app).get("/api/restaurants?postcode=CT1 2  EH   "); 
+
+				expect(global.fetch).toHaveBeenCalledWith("https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/CT12EH");
+			});
+        });
     });
 })
