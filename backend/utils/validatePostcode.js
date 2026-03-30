@@ -1,6 +1,6 @@
 function validatePostcode(postcode = "") {
     if (typeof(postcode) !== "string") {
-        return false
+        return false;
     }; 
 
     const modifiedPostcode = postcode.replaceAll(" ", "").toUpperCase();
@@ -13,7 +13,7 @@ function validatePostcode(postcode = "") {
         return false;
     }; 
 
-    return true
+    return true;
 }; 
 
 module.exports = validatePostcode;
