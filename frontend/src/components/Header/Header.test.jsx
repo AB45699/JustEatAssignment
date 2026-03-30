@@ -28,8 +28,8 @@ describe("Header", ()=>{
 		expect(screen.queryByText(homePageText)).not.toBeInTheDocument();
 
 		const logoImage = screen.getByAltText("company logo");
-		await user.click(logoImage);
 
+		await user.click(logoImage);
 		expect(screen.getByText(homePageText)).toBeInTheDocument();
 	});
 })
