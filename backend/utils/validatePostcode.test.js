@@ -5,11 +5,11 @@ describe("validatePostcode", ()=>{
         expect(typeof(validatePostcode(""))).toBe("boolean");
     }); 
     test("returns true for a valid UK postcode", ()=>{
-        expect(validatePostcode("EC4M 7RF")).toBe(true);
+        expect(validatePostcode("EC4M7RF")).toBe(true);
     });
     test("returns true for all lower and mixed case valid postcode inputs", ()=>{
-        expect(validatePostcode("ec4m 7rf")).toBe(true);
-        expect(validatePostcode("ec4M 7Rf")).toBe(true);
+        expect(validatePostcode("ec4m7rf")).toBe(true);
+        expect(validatePostcode("ec4M7Rf")).toBe(true);
     }); 
     test("ignores any spaces within the input", ()=>{
         expect(validatePostcode(" EC4M 7RF  ")).toBe(true);
