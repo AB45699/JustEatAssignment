@@ -15,26 +15,26 @@
 	margin-bottom: 10px;
 }
 
-.restaurants-no-results {
+.restaurants__no-results {
 	display: flex;
 	flex-direction: column;
 	margin-top: 50px;
 	padding: 8px;
 }
 
-.restaurants-no-results__title {
+.restaurants__no-results-title {
 	font-weight: 800;
 	font-size: 1.6rem;
 }
 
-.error-message {
+.restaurants__error {
 	padding: 8px;
 	margin-top: 50px;
 	font-weight: 800;
 	font-size: 1.6rem;
 }
 
-.restaurants-no-results__subtitle {
+.restaurants__no-results-subtitle {
 	font-size: 1.2rem;
 }
 
@@ -62,11 +62,11 @@
 		font-size: 1.5rem;
 	}
 
-	.restaurants-no-results__title, .error-message {
+	.restaurants__no-results-title, .restaurants__error {
 		font-size: 1.9rem;
 	}
 
-	.restaurants-no-results__subtitle {
+	.restaurants__no-results-subtitle {
 		font-size: 1.5rem;
 	}
 }

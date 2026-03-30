@@ -13,15 +13,15 @@ function RestaurantsGrid() {
 	}; 
 
 	if (error) {
-		return <h1 className="error-message">{error}</h1>
+		return <h1 className="restaurants__error">{error}</h1>
 	}; 
 
 	return (
 		<>
 			{restaurants.length === 0 ? (
-				<div className="restaurants-no-results">
-					<h1 className="restaurants-no-results__title">No results for {postcode}!</h1>
-					<h2 className="restaurants-no-results__subtitle">Try searching for another postcode.</h2>
+				<div className="restaurants__no-results">
+					<h1 className="restaurants__no-results-title">No results for {postcode}!</h1>
+					<h2 className="restaurants__no-results-subtitle">Try searching for another postcode.</h2>
 				</div>
 			) : (
 				<div className="restaurants__container">
