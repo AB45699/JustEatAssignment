@@ -4,7 +4,7 @@
 	align-items: center;
 }
 
-.results-page .header-container {
+.results-page .results-page__header-container {
 	position: sticky;
 	top: 0;
 	width: 100%;
@@ -38,7 +38,6 @@
         height: 47px;
     }
 }
-
 
 @media (min-width: 1200px) {
     .results-page .form__postcode-input-container {
