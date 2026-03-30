@@ -60,8 +60,7 @@ describe("transformData", ()=>{
                     "address": {"city": "London","firstLine": "3 London Street"},
                     "starRating": 3.5,
 					"logoUrl": "https://test/uk/images/restaurants/60392.gif",
-                    "cuisines": ["Chicken"]
-                
+                    "cuisines": ["Chicken"] 
             }); 
         });
     });
