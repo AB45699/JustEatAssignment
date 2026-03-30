@@ -1,19 +1,19 @@
 import { getRestaurants } from "./restaurants.js";
 
 const mockData = [
-			{
-				"name": "Zam Zam Grill",
-				"address": {"city": "London","firstLine": "51 Hackney Road"},
-				"starRating": 5,
-				"cuisines": [ "Kebab","Chicken","Halal","Collect stamps","Deals"]
-			},
-			{
-				"name": "Morley's® - Brick Lane",
-				"address": { "city": "London","firstLine": "60 Brick Lane"},
-				"starRating": 4,
-				"cuisines": ["Chicken","Burgers","Collect stamps","Deals"]
-			}
-		];
+		{
+			"name": "Zam Zam Grill",
+			"address": {"city": "London","firstLine": "51 Hackney Road"},
+			"starRating": 5,
+			"cuisines": [ "Kebab","Chicken","Halal","Collect stamps","Deals"]
+		},
+		{
+			"name": "Morley's® - Brick Lane",
+			"address": { "city": "London","firstLine": "60 Brick Lane"},
+			"starRating": 4,
+			"cuisines": ["Chicken","Burgers","Collect stamps","Deals"]
+		}
+	];
 
 beforeEach(()=>{
 	global.fetch = vi.fn();
