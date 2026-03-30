@@ -2,8 +2,7 @@ import './Loading.css';
 
 function Loading() {
 	return (
-		<div data-testId="loader" className="loader">
-		</div>
+		<div data-testid="loader" className="loader"></div>
 	)
 };
 
