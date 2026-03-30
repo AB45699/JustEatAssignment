@@ -116,6 +116,7 @@ I chose to implement postcode validation on both the frontend and backend, despi
 - Postcode is not displayed on each restaurant card. I considered `city` and `firstLine` to be sufficient.
 - Null or missing `rating`/`starRating` data is returned as `null` by ``transformData.js`` and displayed as "No ratings yet". This string would be a placeholder while the issue is reviewed.  I thought this is better than showing a restaurant with valid reviews as having 0 stars. 
 - A postcode that passes `validatePostcode()` but returns an empty array is treated as a successful fetch and the user is shown a 'no results' message prompting them to try another postcode.
+- A fallback image is displayed if logoUrl is null/missing/empty, to maintain a consistent card layout. This is handled in ``transformData.js`` which normalises all three cases to an empty string, with ``RestaurantCard.jsx`` substituting the fallback image.
 
 ## Unclear concepts ##
 - Interface choice: the brief left this open-ended. I chose a web interface to best showcase the data visually and demonstrate frontend skills.
