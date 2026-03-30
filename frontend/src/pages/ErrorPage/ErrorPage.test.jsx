@@ -7,12 +7,11 @@ describe("Error page", ()=>{
 	it("renders the error page title and link text", ()=>{
 		render(
 			<MemoryRouter>
-		<ErrorPage />
-		</MemoryRouter>
-	);
+				<ErrorPage />
+			</MemoryRouter>);
 
 		expect(screen.getByRole("heading", {name: "Page not found!"})).toBeInTheDocument();
-		expect(screen.getByText(/search page/)).toBeInTheDocument();
+		expect(screen.getByRole("link", {name: /search page/})).toBeInTheDocument();
 	}); 
 	it("returns user to search page when link is clicked", async ()=>{
 		const user = userEvent.setup();
@@ -28,7 +27,7 @@ describe("Error page", ()=>{
 		expect(screen.getByRole("heading", {name: "Page not found!"})).toBeInTheDocument();
 		expect(screen.queryByText("Mock search page")).not.toBeInTheDocument();
 
-		await user.click(screen.getByText(/search page/));
+		await user.click(screen.getByRole("link", {name: /search page/}));
 		expect(screen.queryByRole("heading", {name: "Page not found!"})).not.toBeInTheDocument();
 		expect(screen.getByText("Mock search page")).toBeInTheDocument();
 	}); 
